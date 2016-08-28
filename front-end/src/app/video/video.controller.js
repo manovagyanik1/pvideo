@@ -1,13 +1,15 @@
 export class VideoController{
-	constructor ($http) {
+	constructor ($http, $location) {
     'ngInject';
     this.$http = $http;
-    this.getVideo();
+    console.log($location.search().id);
+    var id = $location.search().id;
+    this.getVideo(id);
   }
 
-  getVideo(){
+  getVideo(id){
   	var vm = this;
-  	this.$http.get('http://localhost:5000/api/video/id?id=57c3047ed644b6487142b5ff').then(function(result){
+  	this.$http.get('http://localhost:5000/api/video/id?id='+id).then(function(result){
   		//vm.iframeHTML = result.data.iframe;
   		console.log(result.data.iframe);
   		console.log(angular.element(document.querySelector("#iframe"))[0]);

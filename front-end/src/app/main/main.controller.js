@@ -11,6 +11,10 @@ export class MainController {
   	console.log(this.searchText);
   	this.$http.get(BASE_URL+ 'videos/search?tag='+this.searchText).then(function(result){
   		vm.videos = result.data;
+  		vm.videos = vm.videos.map((video) => {
+  			video._id = "http://localhost:3000/#/"+ 'video/id?id=' +video._id;
+  			return video;
+  		})
   	});
   }
 
@@ -20,7 +24,7 @@ export class MainController {
   		console.log(result);
   		vm.videos = result.data;
   		vm.videos = vm.videos.map((video) => {
-  			video._id = "http://localhost:3000/"+ 'video/id?id=' +video._id;
+  			video._id = "http://localhost:3000/#/"+ 'video/id?id=' +video._id;
   			return video;
   		})
   	});

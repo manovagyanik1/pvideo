@@ -7,7 +7,7 @@ export function routerConfig ($stateProvider, $urlRouterProvider) {
       controller: 'MainController',
       controllerAs: 'main'
     }).state('video', {
-      url: '/video/id/',
+      url: '/video/id',
       templateUrl: 'app/video/video.html',
       controller: 'VideoController',
       controllerAs: 'video'
