@@ -1,19 +1,28 @@
+var BASE_URL = "http://localhost:5000/api/";
 export class MainController {
   constructor ($http) {
     'ngInject';
     this.$http = $http;
-    this.getMesasges();
+    this.getVideos();
   }
 
-  getMesasges(){
+  getSearch(){
   	var vm = this;
-  	this.$http.get('http://localhost:5000/api/message').then(function(result){
-  		vm.messages = result.data;
+  	console.log(this.searchText);
+  	this.$http.get(BASE_URL+ 'videos/search?tag='+this.searchText).then(function(result){
+  		vm.videos = result.data;
   	});
   }
 
-  postMessage() {
-    console.log("post");
-    this.$http.post('http://localhost:5000/api/message', {msg: this.message});
+  getVideos(){
+  	var vm = this;
+  	this.$http.get(BASE_URL+'videos?tag=lesbian').then(function(result){
+  		console.log(result);
+  		vm.videos = result.data;
+  		vm.videos = vm.videos.map((video) => {
+  			video._id = "http://localhost:3000/"+ 'video/id?id=' +video._id;
+  			return video;
+  		})
+  	});
   }
 }

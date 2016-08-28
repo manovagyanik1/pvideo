@@ -18,42 +18,60 @@ var lr = new LineByLineReader('../../data/hub.com-db.csv');
 
 var Video = mongoose.model('Video', {
 	iframe: String,
-	thumbnails: [String],
-	tags: [String]
-})
+	firstThumbnail: String,
+	thumbnailList: [String],
+	title: String,
+	tags: [String],
+	categories: [String],
+	pornstar: [String],
+	duration: Number,
+	views: Number,
+	like: Number,
+	dislike: Number,
+});
 
 lr.on('error', function (err) {
 	// 'err' contains error object
 });
 
+// NOTE line.replace(/;/g, "|")
 
 lr.on('line', (line) => {
-	line = line.replace(/;/g, "|")
-			.split("|");
+	line = line.split("|");
 
-	line = line.reduce((obj, value, index) => {
-		if(index === 1){
-			var ifr = {"iframe": value};
-			obj = Object.assign({}, ifr);
-		} else if(value.includes(".jpg")){
-			var thumbnails = obj.thumbnails || [];
-			thumbnails.push(value);
-			obj = Object.assign(obj, {"thumbnails": thumbnails});
-		} else {
-			var tags = obj.tags || [];
-			tags.push(value);
-			obj = Object.assign(obj, {"tags": tags});
-		}
-		return obj;
+	var iframe = line[0];
+	var firstThumbnail = line[1];
+	var thumbnailList = line[2].split(';');
+	var title = line[3];
+	var tags = line[4].split(';');
+	var categories = line[5].split(';');
+	var pornstar = line[6].split(';');
+	var duration = line[7];
+	var views = line[8];
+	var like = line[9];
+	var dislike = line[10];
+
+	//console.log(line);
+	var video = new Video({
+		iframe,
+		firstThumbnail,
+		thumbnailList,
+		title,
+		tags,
+		categories,
+		pornstar,
+		duration,
+		views,
+		like,
+		dislike
 	});
 
-	var video = new Video(line);
 	video.save(function(err){
 		if(err){
 			console.log(err);
 		}
 	});
-	//console.log(line);
+
 
 	//console.log("\n\n");
 });
