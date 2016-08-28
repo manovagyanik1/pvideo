@@ -7,6 +7,13 @@ var Message = mongoose.model('Message', {
 	msg: String
 });
 
+const DEFAULT_SIZE = 20;
+var Video = mongoose.model('Video', {
+	iframe: String,
+	thumbnails: [String],
+	tags: [String]
+});
+
 app.use(bodyParser.json());
 
 app.use(function(req, res, next){
@@ -29,6 +36,23 @@ function GetMessages(req, res) {
 		res.send(result);
 	});
 }
+
+function GetVideosBasedOnTag(req, res) {
+	var tag = req.param('tag') || "straight";
+	var page = req.param('page');
+	page = page || 0;
+	Video.find({tags: tag}).skip(page*DEFAULT_SIZE).limit(DEFAULT_SIZE).exec(function(err, results){
+		
+		console.log(results);
+		results = results.map((result)=>{
+			const {iframe, thumbnails} = result;
+			return {iframe, thumbnails};
+		})
+		res.send(results);
+	});
+}
+
+app.get('/api/videos', GetVideosBasedOnTag);
 
 app.get('/api/message', GetMessages);
 
