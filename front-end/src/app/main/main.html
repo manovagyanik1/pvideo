@@ -19,9 +19,17 @@
     <div class="panel-body">
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="video in main.videos">
-          <a href="{{video._id}}">
-            <img src="{{video.firstThumbnail}}"/>
-          </a>
+            <a href="{{video._id}}">
+              <img src="{{video.firstThumbnail}}"/>
+            </a>
+            <div>{{video.title}}</div>
+            <div>{{video.tags}}</div>
+            <div>{{video.categories}}</div>
+            <div>{{video.pornstar}}</div>
+            <div>{{video.duration}}</div>
+            <div>{{video.views}}</div>
+            <div>{{video.like}}</div>
+            <div>{{video.dislike}}</div>
           </li>
         </ul>
     </div>

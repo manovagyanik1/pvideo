@@ -41,8 +41,8 @@ function GetVideosBasedOnTag(req, res) {
 		
 		results = results.map((result)=>{
 					console.log(result);
-			const {_id, iframe, firstThumbnail} = result;
-			return {_id, iframe, firstThumbnail};
+			//const {_id, iframe, firstThumbnail} = result;
+			return result;
 		})
 		res.send(results);
 	});
@@ -66,8 +66,8 @@ function GetVideosBasedOnSearch(req, res) {
 		
 		console.log(results);
 		results = results.map((result)=>{
-			const {_id, iframe, firstThumbnail} = result;
-			return {_id, iframe, firstThumbnail};
+			//const {_id, iframe, firstThumbnail} = result;
+			return result;
 		})
 		res.send(results);
 	});

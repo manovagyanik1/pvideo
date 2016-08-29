@@ -1,9 +1,10 @@
 var BASE_URL = "http://localhost:5000/api/";
 export class MainController {
-  constructor ($http) {
+  constructor ($http, $location) {
     'ngInject';
     this.$http = $http;
-    this.getVideos();
+    var params = $location.search();
+    this.getVideos(params);
   }
 
   getSearch(){
@@ -18,9 +19,10 @@ export class MainController {
   	});
   }
 
-  getVideos(){
+  getVideos(params){
   	var vm = this;
-  	this.$http.get(BASE_URL+'videos?tag=lesbian').then(function(result){
+  	const page= params.page || 0;
+  	this.$http.get(BASE_URL+'videos?tag=lesbian&page='+page).then(function(result){
   		console.log(result);
   		vm.videos = result.data;
   		vm.videos = vm.videos.map((video) => {
