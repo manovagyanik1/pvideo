@@ -1,3 +1,6 @@
+var BASE_URL = "https://pvideo-zmarkz.c9users.io";
+var FRONT_BASE_URL = "http://localhost:3000/#/";
+
 export class VideoController{
 	constructor ($http, $location) {
     'ngInject';
@@ -9,7 +12,7 @@ export class VideoController{
 
   getVideo(id){
   	var vm = this;
-  	this.$http.get('http://localhost:5000/api/video/id?id='+id).then(function(result){
+  	this.$http.get(BASE_URL+'/api/video/id?id='+id).then(function(result){
   		//vm.iframeHTML = result.data.iframe;
   		console.log(result.data.iframe);
   		console.log(angular.element(document.querySelector("#iframe"))[0]);

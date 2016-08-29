@@ -93,5 +93,6 @@ const BASE_URI = process.env.IP;
 const PORT = process.env.PORT; // 5000
 
 var server = app.listen(PORT, function(){
-	console.log("listening on port" + port);
+	console.log(BASE_URI);
+	console.log("listening on port" + PORT);
 })

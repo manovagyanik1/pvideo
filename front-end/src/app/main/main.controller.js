@@ -1,4 +1,10 @@
-var BASE_URL = "http://localhost:5000/api/";
+//var BASE_URL = "http://localhost:5000";
+var BASE_URL = "https://pvideo-zmarkz.c9users.io";
+var FRONT_BASE_URL = "http://localhost:3000/#/";
+
+var IP = process.env.IP;
+var PORT = process.env.PORT;
+
 export class MainController {
   constructor ($http, $location) {
     'ngInject';
@@ -10,10 +16,10 @@ export class MainController {
   getSearch(){
   	var vm = this;
   	console.log(this.searchText);
-  	this.$http.get(BASE_URL+ 'videos/search?tag='+this.searchText).then(function(result){
+  	this.$http.get(BASE_URL+ '/api/videos/search?tag='+this.searchText).then(function(result){
   		vm.videos = result.data;
   		vm.videos = vm.videos.map((video) => {
-  			video._id = "http://localhost:3000/#/"+ 'video/id?id=' +video._id;
+  			video._id = FRONT_BASE_URL+ 'video/id?id=' +video._id;
   			return video;
   		})
   	});
@@ -26,7 +32,7 @@ export class MainController {
   		console.log(result);
   		vm.videos = result.data;
   		vm.videos = vm.videos.map((video) => {
-  			video._id = "http://localhost:3000/#/"+ 'video/id?id=' +video._id;
+  			video._id = FRONT_BASE_URL+ 'video/id?id=' +video._id;
   			return video;
   		})
   	});
