@@ -79,7 +79,8 @@ app.get('/api/videos/search', GetVideosBasedOnSearch);
 
 app.get('/api/video/id', GetVideoBasedOnId);
 
-mongoose.connect("mongodb://localhost:27017/test", function(error, db){
+//mongoose.connect("mongodb://localhost:27017/test", function(error, db){
+mongoose.connect("mongodb://admin:admin@ds033015.mlab.com:33015/pvideo", function(error, db){
 	if(!error){
 		console.log("we are connected to mongo");
 		//GetMessages();
@@ -88,6 +89,9 @@ mongoose.connect("mongodb://localhost:27017/test", function(error, db){
 	}
 });
 
-var server = app.listen(5000, function(){
-	console.log("listening on port 5000");
+const BASE_URI = process.env.IP;
+const PORT = process.env.PORT; // 5000
+
+var server = app.listen(PORT, function(){
+	console.log("listening on port" + port);
 })

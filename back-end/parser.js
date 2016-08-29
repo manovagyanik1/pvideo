@@ -4,9 +4,9 @@ var Transform = require('stream').Transform
 var fs = require('fs');
 
 var mongoose = require('mongoose');
-//mongoose.connect("mongodb://admin:admin@ds033015.mlab.com:33015/pvideo", function(error, db){
+mongoose.connect("mongodb://admin:admin@ds033015.mlab.com:33015/pvideo", function(error, db){
 
-mongoose.connect("mongodb://localhost:27017/test", function(error, db){
+//mongoose.connect("mongodb://localhost:27017/test", function(error, db){
 	if(!error){
 		console.log("we are connected to mongo");
 		//GetMessages();
