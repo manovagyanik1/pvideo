@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require('mongoose');
 var ObjectId = require('mongodb').ObjectId; 
+var path = require('path');
 var Message = mongoose.model('Message', {
 	msg: String
 });
@@ -72,6 +73,36 @@ function GetVideosBasedOnSearch(req, res) {
 		res.send(results);
 	});
 }
+
+// This servers a file..
+var serveFile = function(filePath, res){
+	filePath = path.resolve(filePath);
+	console.log(filePath);
+    var options = {
+        dotfiles: 'deny',
+        headers: {
+            'x-timestamp': Date.now(),
+            'x-sent': true
+        }
+    };
+
+    res.sendFile(filePath, options, function (err) {
+        if (err) {
+            console.log(err);
+            res.status(err.status).end();
+        }
+    });
+};
+
+var frontEndDir = __dirname + '/../../cyclejs/';
+
+app.get('/', function(req, res){
+	serveFile(frontEndDir + 'index.html', res)
+});
+
+app.get('/bundle.js', function(req, res){
+	serveFile(frontEndDir + 'bundle.js', res)
+});
 
 app.get('/api/videos', GetVideosBasedOnTag);
 
