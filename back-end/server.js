@@ -136,17 +136,19 @@ var serveFile = function(filePath, res){
 
 var frontEndDir = __dirname + '/../../cyclejs/';
 
-app.get('/', function(req, res){
-	serveFile(frontEndDir + 'index.html', res)
-});
+// app.get('/', function(req, res){
+// 	serveFile(frontEndDir + 'index.html', res)
+// });
 
-app.get('/bundle.js', function(req, res){
-	serveFile(frontEndDir + 'bundle.js', res)
-});
+// app.get('/bundle.js', function(req, res){
+// 	serveFile(frontEndDir + 'bundle.js', res)
+// });
 
 app.get('/api/videos', GetVideosBasedOnTag);
 
 app.get('/videos', HGetVideosBasedOnTag);
+
+app.get('/', HGetVideosBasedOnTag);
 
 app.get('/api/videos/search', GetVideosBasedOnSearch);
 
