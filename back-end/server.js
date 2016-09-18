@@ -25,6 +25,8 @@ var Video = mongoose.model('Video', {
 
 app.use(bodyParser.json());
 
+app.set('view engine', 'ejs');
+
 app.use(function(req, res, next){
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Content-Type, Autorization");
@@ -48,6 +50,44 @@ function GetVideosBasedOnTag(req, res) {
 		res.send(results);
 	});
 }
+
+function HGetVideosBasedOnTag(req, res) {
+	var tag = req.param('tag') || "lesbian";
+	var page = req.param('page') || 0;
+	page = page || 0;
+	console.log(tag);
+	Video.find({tags: tag}).skip(page*DEFAULT_SIZE).limit(DEFAULT_SIZE).exec(function(err, results){
+		
+		results = results.map((result)=>{
+					console.log(result);
+			return result;
+		})
+		console.log("sending result");
+		res.render('../views/main', {videos: results});
+		console.log("sent");
+	});
+}
+
+function HGetVideosBasedOnSearch(req, res) {
+	var tag = req.param('tag') || "straight";
+	var page = req.param('page') || 0;
+	console.log(tag);
+	Video.find({tags: {$regex: tag}}).skip(page*DEFAULT_SIZE).limit(DEFAULT_SIZE).exec(function(err, results){
+		
+		console.log(results);
+		res.render('../views/main', {videos: results});
+	});
+}
+
+function HGetVideoBasedOnId(req, res) {
+	var id = req.param('id');
+	var oId = new ObjectId(id);
+	Video.findOne({_id: oId}).exec(function(err, results){
+		console.log(results);
+		res.render('../views/video', {video: results});
+	});
+}
+
 
 function GetVideoBasedOnId(req, res) {
 	var id = req.param('id');
@@ -106,9 +146,15 @@ app.get('/bundle.js', function(req, res){
 
 app.get('/api/videos', GetVideosBasedOnTag);
 
+app.get('/videos', HGetVideosBasedOnTag);
+
 app.get('/api/videos/search', GetVideosBasedOnSearch);
 
+app.get('/videos/search', HGetVideosBasedOnSearch);
+
 app.get('/api/video/id', GetVideoBasedOnId);
+
+app.get('/video/id', HGetVideoBasedOnId);
 
 mongoose.connect("mongodb://localhost:27017/test", function(error, db){
 	if(!error){

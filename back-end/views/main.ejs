@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <% include('header.ejs') %>
+    </head>
+    <body>
+        <h2>Popular</h2>
+        <div>
+            <% videos.forEach(function(video) { %>
+                <a href="http://localhost:5000/video/id?id=<%= video._id %>">
+                    <img src =<%= video.firstThumbnail %> ></img>
+                    <div><span><%= video.title %></span></div>
+                </a>
+            <% }); %>
+        </div>
+    </body>
+     <% include('footer.ejs') %>
+</html>
