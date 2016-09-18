@@ -1,0 +1,12 @@
+<form>
+    <input id="searchText" type='text'/>
+    <input type='button' value='search' onclick="doSearch(event)">
+</form>
+
+<script>
+    function doSearch(event) {
+        event.preventDefault();
+        var searchText = document.getElementById("searchText").value;
+        window.location.assign("http://localhost:5000/videos/search?tag="+searchText);
+    }
+</script>

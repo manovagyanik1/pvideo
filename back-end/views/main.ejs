@@ -1,7 +1,8 @@
 <html>
     <head>
-        <% include('header.ejs') %>
+        <%- include header.ejs %>
     </head>
+    <%- include search.ejs %>
     <body>
         <h2>Popular</h2>
         <div>
@@ -13,5 +14,5 @@
             <% }); %>
         </div>
     </body>
-     <% include('footer.ejs') %>
+     <%- include footer.ejs %>
 </html>
